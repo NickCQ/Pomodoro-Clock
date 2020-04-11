@@ -1,0 +1,143 @@
+body,html{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    font-family: 'Baloo Paaji 2', cursive;
+}
+
+header{
+    position: relative;
+    display: flex;
+    background-color: rgb(131, 139, 161);
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    font-size: 35px;
+    border-bottom: solid black;
+}
+
+main{
+    background-color: beige;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: linear-gradient(to bottom right,rgb(93, 134, 153),rgb(83, 35, 194));
+}
+
+.sob{
+    grid-area: sob;
+}
+
+.timer{
+    grid-area:timer;
+}
+
+
+.container{
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-areas:    '. .'
+                            'timer timer';
+    grid-template-rows: 80px auto;
+    
+}
+
+.setters{
+    display:grid;
+    grid-template-areas: 'sob sob sob';
+    justify-content: center;
+    grid-template-columns: 35px 55px 35px;
+}
+
+.setters div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.arrow{
+    cursor: pointer;
+    border-radius: 17.5px;
+    border: solid white;
+
+}
+
+.arrow:hover{
+    color: gray;
+    border: gray solid;
+}
+
+.title{
+    grid-area: title;
+    font-size: 35px;
+}
+
+.timeleft{
+    grid-area: timeleft;
+    font-size: 85px;
+}
+
+.timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock{
+    display: grid;
+    grid-template-areas: 'title title title'
+                         'timeleft timeleft timeleft';
+    border: solid white;
+    color: whitesmoke;
+    height: 300px;
+    width: 300px;
+    border-radius: 150px;
+    justify-content: center;
+    grid-template-rows: 80px 130px 40px;
+    background-color: #7f5a83;
+background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+
+}
+
+.title span{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 150px;
+}
+
+.timeleft span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 240px;
+}
+
+.clock div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.but span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 50px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.but span:hover{
+    color: gray;
+    
+}
+

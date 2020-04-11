@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pomodoro Clock</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+       Pomodoro Clock
+    </header>
+
+    <main>
+        <div class="container">
+            <div class='setters'>
+                <div class="sob">Session</div>
+                <div class="arrow">↓</div><div class='sessiontime'><span class="minute">25</span>:<span class="second">00</span></div><div class="arrow">↑</div>
+            </div>
+            <div class='setters'>
+                <div class="sob">Break</div>
+                <div class="arrow">↓</div><div class='breaktime'><span class="minute">5</span>:<span class="second">00</span></div><div class="arrow">↑</div>
+            </div>
+            <div class="timer">
+                <div class="clock">
+                    <div class="title"><span>Session</span></div>
+                    <div class="timeleft"><span><span class="minute">25</span>:<span class="second">00</span></span></div>
+                    <div class="but" title='Reset Session and Break to 25:00 and 5:00 respectively'><span>Reset</span></div>
+                    <div class="but" title='Start'><span>►</span></div>
+                    <div class="but" title='Stop'><span>■</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        arrows=Array.from(document.getElementsByClassName('arrow'));
+        sessiontime=document.querySelector('.sessiontime');
+        breaktime=document.querySelector('.breaktime');
+        title=document.querySelector('.title');
+        timeleft=document.querySelector('.timeleft');
+        buttons=Array.from(document.getElementsByClassName('but'));
+        pause='❚ ❚';
+
+        function updateButton() {
+            buttons[1].querySelector('span').innerText=='►'? buttons[1].querySelector('span').innerText='❚ ❚' : buttons[1].querySelector('span').innerText='►';
+        }
+
+        function arrowcontrol(arrow,minutes){
+            if(arrow.innerText=='↑'){
+                        newmin=parseInt(minutes.innerText)+1;
+                        minutes.innerText=newmin
+            } else{
+                        newmin=parseInt(minutes.innerText)-1;
+                        minutes.innerText=newmin
+            }
+        }   
+
+        function arrowtimer(e){
+            arrow=e.target;
+            if(arrow.parentElement.querySelector('.sob').innerText=='Session') {
+                minutes=sessiontime.querySelector('.minute');
+                arrowcontrol(arrow,minutes);
+                timeleft.querySelector('.minute').innerText=sessiontime.querySelector('.minute').innerText
+            } else{
+                minutes=breaktime.querySelector('.minute');
+                arrowcontrol(arrow,minutes);
+            };
+        }
+
+        function startTimer(){
+            tiempo=parseInt(timeleft.querySelector('.minute').innerText)*60+parseInt(timeleft.querySelector('.second').innerText);
+            let min;
+            let sec;
+            if(buttons[1].querySelector('span').innerText=='❚ ❚'){
+                countdown=setInterval(() => {
+                    min=parseInt(tiempo/60);
+                    sec=parseInt(tiempo%60);
+                    sec = sec < 10 ? "0" + sec : sec;
+
+                    timeleft.querySelector('span').innerHTML=`<span class="minute">${min}</span>:<span class="second">${sec}</span>`;
+                    if(--tiempo<0){
+                        title.querySelector('span').innerText=='Session'? title.querySelector('span').innerText='Break':title.querySelector('span').innerText='Session';
+                        if(title.querySelector('span').innerText=='Session'){
+                            timeleft.querySelector('span').innerHTML=sessiontime.innerHTML;
+                        } else {
+                            timeleft.querySelector('span').innerHTML=breaktime.innerHTML;
+                        }
+                        tiempo=parseInt(timeleft.querySelector('.minute').innerText)*60+parseInt(timeleft.querySelector('.second').innerText);
+
+                    }
+
+
+                }, 1000);
+            } else {
+                clearInterval(countdown);
+            }
+            
+            
+        }
+
+        buttons[0].addEventListener('click',()=>{
+            title.querySelector('span').innerText='Session'
+            timeleft.querySelector('span').innerHTML='<span class="minute">25</span>:<span class="second">00</span>';
+            sessiontime.innerHTML='<span class="minute">25</span>:<span class="second">00</span>';
+            breaktime.innerHTML='<span class="minute">5</span>:<span class="second">00</span>';
+            clearInterval(countdown);
+            buttons[1].querySelector('span').innerText='►';
+        });
+
+        buttons[1].addEventListener('click', updateButton);
+
+        buttons[2].addEventListener('click',()=>{
+            title.querySelector('span').innerText='Session'
+            timeleft.querySelector('span').innerHTML=sessiontime.innerHTML;
+            clearInterval(countdown);
+            buttons[1].querySelector('span').innerText='►';
+        });
+
+        arrows.forEach(arrow => {
+            arrow.addEventListener('click',arrowtimer);
+        });
+
+        buttons[1].addEventListener('click', startTimer);
+    </script>
+</body>
+</html>
